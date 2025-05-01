@@ -30,15 +30,22 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('The chart'),
-            const SizedBox(height: 20),
-            Expanded(child: ExpensesList(expenses: _registeredExpenses)),
-          ],
-        ),
+      appBar: AppBar(
+        title: const Text('Expense Tracker'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          const Text('The chart'),
+          Expanded(
+            child: ExpensesList(expenses: _registeredExpenses),
+          ),
+        ],
       ),
     );
   }
