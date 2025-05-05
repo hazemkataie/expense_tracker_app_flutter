@@ -10,6 +10,18 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
+  // final _dateController = TextEditingController();
+  // final _categoryController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _amountController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,19 +29,33 @@ class _NewExpenseState extends State<NewExpense> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'Add Expense',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          TextField(
+            controller: _titleController,
+            maxLength: 50,
+            decoration: const InputDecoration(label: Text('Title')),
           ),
-          const SizedBox(height: 16),
-          TextField(decoration: const InputDecoration(labelText: 'Title')),
-          const SizedBox(height: 16),
-          TextField(decoration: const InputDecoration(labelText: 'Amount')),
-          const SizedBox(height: 16),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-            label: const Text('Add Expense'),
+          TextField(
+            controller: _amountController,
+            keyboardType: const TextInputType.numberWithOptions(),
+            decoration: const InputDecoration(
+              label: Text('Amount'),
+              prefixText: '\$ ',
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(onPressed: () {}, child: const Text('Cancel')),
+              ElevatedButton(
+                onPressed: () {
+                  print(
+                    'Title: ${_titleController.text}, Amount: ${_amountController.text}',
+                  );
+                },
+                child: const Text('Save Expense'),
+              ),
+              // const SizedBox(width: 16),
+            ],
           ),
         ],
       ),
